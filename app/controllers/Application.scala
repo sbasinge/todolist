@@ -5,7 +5,9 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 import models.Task
-
+import models.AppDB
+import org.squeryl.PrimitiveTypeMode._
+ 
 
 
 object Application extends Controller {
@@ -20,7 +22,8 @@ object Application extends Controller {
   }
   
   def tasks = Action {
-  	Ok(views.html.index(Task.all(), taskForm))
+    def all: List[Task] = Task.all
+  	Ok(views.html.index(all, taskForm))
   }
   
   def newTask = Action { implicit request =>
